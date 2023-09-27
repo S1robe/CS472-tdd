@@ -8,6 +8,6 @@ on:
       - main
 
 jobs:
-  build: "ubuntu-builder"
-  runs-on: ubuntu-latest
-    container: "python:3.9-slim"
+  ActionsTest: 
+    runs-on: ubuntu-latest
+      container: "python:3.9-slim"
