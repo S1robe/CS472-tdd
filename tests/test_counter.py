@@ -13,12 +13,11 @@ how to call the web service and assert what it should return.
 from unittest import TestCase
 
 # we need to import the unit under test - counter
-from src.counter import app 
+from src.counter import app
 
 # we need to import the file that contains the status codes
-from src import status 
+from src import status
 
-import json
 
 class CounterTest(TestCase):
     """Counter tests"""
@@ -37,7 +36,7 @@ class CounterTest(TestCase):
         self.assertEqual(result.status_code, status.HTTP_201_CREATED)
         result = self.client.post('/counters/bar')
         self.assertEqual(result.status_code, status.HTTP_409_CONFLICT)
-    
+
     def test_update_a_counter(self):
         """It should update a counter"""
         name = "cntr"
@@ -46,7 +45,7 @@ class CounterTest(TestCase):
         self.assertEqual(result.status_code, status.HTTP_201_CREATED)
         baseline = result.get_json()[name]      # Result
         result = self.client.put(fqdn)  # Update
-        self.assertEqual(result.status_code, status.HTTP_200_OK) # 200
+        self.assertEqual(result.status_code, status.HTTP_200_OK)  # 200
         self.assertEqual(baseline+1, result.get_json()[name])             #
 
     def test_update_a_counter_fail(self):
