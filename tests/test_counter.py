@@ -42,7 +42,7 @@ class CounterTest(TestCase):
         """It should update a counter"""
         name = "cntr"
         fqdn = "/counters/" + name
-        result = self.client.post(fqdn) # Create
+        result = self.client.post(fqdn)  # Create
         self.assertEqual(result.status_code, status.HTTP_201_CREATED)
         baseline = result.get_json()[name]      # Result
         result = self.client.put(fqdn)  # Update
@@ -61,7 +61,7 @@ class CounterTest(TestCase):
         result = self.client.get("/counters/cnt")
         self.assertEqual(result.status_code, status.HTTP_200_OK)
         self.assertEqual(0, result.get_json()["cnt"])
- 
+
     def test_get_a_counter_fail(self):
         """It should 404 when reading non-existent counter"""
         result = self.client.get("/counters/IDontExist")
