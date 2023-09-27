@@ -1,4 +1,5 @@
 # Dependencies for this lab
+flake8  # added with workflows
 Flask
 nose
 pinocchio
