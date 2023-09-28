@@ -49,9 +49,9 @@ class CounterTest(TestCase):
         self.assertEqual(baseline+1, result.get_json()[name])             #
 
     def test_update_a_counter_fail(self):
-        """It should return 404, update nonexist-counter"""
+        """It should return 204, update nonexist-counter"""
         result = self.client.put("/counters/IDontExist")  # Update
-        self.assertEqual(result.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(result.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_get_a_counter(self):
         """It should read the counter"""
@@ -66,12 +66,15 @@ class CounterTest(TestCase):
         result = self.client.get("/counters/IDontExist")
         self.assertEqual(result.status_code, status.HTTP_404_NOT_FOUND)
 
-    def tes_delete_a_counter(self):
+    def test_delete_a_counter(self):
         """It should retunr 204 when deleting"""
-        result = self.client.post('/counters/xyz')  # counter must exist prior  
+        result = self.client.post('/counters/xyz')  # counter must exist prior
         self.assertEqual(result.status_code, status.HTTP_201_CREATED)
-        result = self.client.delete('/counters/xyz')  # request to delete the counter
-        self.assertEqual(result.status_code, status.HTTP_204_NO_CONTENT)
-        result = self.client.get("/counters/xyz")  # request to check to make sure that it actually is gone
+        # request to delete the counter
+        result = self.client.delete('/counters/xyz')
+        self.assertEqual(result.status_code, status.HTTP_200_OK)
+        # request to check to make sure that it actually is gone
+        result = self.client.get("/counters/xyz")
         self.assertEqual(result.status_code, status.HTTP_404_NOT_FOUND)
- 
+        result = self.client.delete("/counters/xyz")
+        self.assertEqual(result.status_code, status.HTTP_204_NO_CONTENT)
