@@ -28,7 +28,7 @@ def update_counter(name: str):
     if name in COUNTERS:
         COUNTERS[name] = COUNTERS[name] + 1
         return {name: COUNTERS[name]}, status.HTTP_200_OK
-    return {"Message": f"Counter {name} does not exist"}, status.HTTP_204_NO_CONTENT
+    return {"Message": f"Counter {name} does not exist"}, status.HTTP_404_NOT_FOUND
 
 
 @app.route('/counters/<name>', methods=['GET'])
@@ -46,5 +46,5 @@ def delete_counter(name: str):
     app.logger.info(f"Request counter deletion: {name}")
     if name in COUNTERS:
         del COUNTERS[name]
-        return {"Message": f"Counter {name} deleted."}, status.HTTP_200_OK
-    return {"Message": f"Counter {name} does not exist"}, status.HTTP_204_NO_CONTENT
+        return {"Message": f"Counter {name} deleted."}, status.HTTP_204_NO_CONTENT
+    return {"Message": f"Counter {name} does not exist"}, status.HTTP_404_NOT_FOUND
